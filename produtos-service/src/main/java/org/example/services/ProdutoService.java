@@ -2,8 +2,11 @@ package org.example.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.models.Pedido;
+import org.example.models.PedidoStatusResponse;
 import org.example.models.Produto;
+import org.example.producers.PedidoStatusProducer;
 import org.example.repositories.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,9 @@ import java.util.List;
 public class ProdutoService {
 
     private final ProdutoRepository repository;
+
+    @Autowired
+    private PedidoStatusProducer statusProducer;
 
     public ProdutoService(ProdutoRepository repository) {
         this.repository = repository;
@@ -83,21 +89,29 @@ public class ProdutoService {
      */
     @Transactional
     public void atualizarEstoque(Pedido pedido) {
-        System.out.println("📦 Processando pedido ID: " + pedido.getId());
+        boolean sucesso = true;
 
-        pedido.getItens().forEach(item -> {
+        for (var item : pedido.getItens()) {
             Produto produto = repository.findById(item.getIdProduto())
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + item.getIdProduto()));
 
             if (produto.getQuantidadeEmEstoque() >= item.getQuantidade()) {
                 produto.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque() - item.getQuantidade());
                 repository.save(produto);
-                System.out.println("✅ Estoque atualizado: " + produto.getNome() +
-                        " (-" + item.getQuantidade() + ")");
+                System.out.println("✅ Estoque atualizado para produto: " + produto.getNome());
             } else {
-                System.out.println("❌ Falha ao atualizar estoque: produto " +
-                        produto.getNome() + " não possui quantidade suficiente.");
+                System.out.println("⚠️ Estoque insuficiente para produto: " + produto.getNome());
+                sucesso = false;
             }
-        });
+        }
+
+        String status = sucesso ? "CONFIRMADO" : "FALHA_ESTOQUE";
+        String mensagem = sucesso
+                ? "Estoque atualizado com sucesso."
+                : "Erro ao atualizar estoque. Produto(s) insuficientes.";
+
+        PedidoStatusResponse response = new PedidoStatusResponse(pedido.getId(), status, mensagem);
+        statusProducer.enviarStatus(response);
     }
+
 }

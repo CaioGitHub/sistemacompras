@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="396b76ac-148c-4b09-a07e-1c75840eabde" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedidos-service/src/main/java/org/example/controllers/PedidoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/pedidos-service/src/main/java/org/example/controllers/PedidoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedidos-service/src/main/java/org/example/services/PedidoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/pedidos-service/src/main/java/org/example/services/PedidoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedidos-service/target/classes/org/example/controllers/PedidoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/pedidos-service/target/classes/org/example/controllers/PedidoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedidos-service/target/classes/org/example/services/PedidoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/pedidos-service/target/classes/org/example/services/PedidoService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "CaioGitHub"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CaioGitHub&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/CaioGitHub/sistemacompras.git",
-    "accountId": "86c8b129-008c-47df-9ff9-a7e2b7ecdb8a"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CaioGitHub/sistemacompras.git&quot;,
+    &quot;accountId&quot;: &quot;86c8b129-008c-47df-9ff9-a7e2b7ecdb8a&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -56,6 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "D:/Aulas/sistemacompras/produtos-service/src/main/java/org/example/Main.java",
