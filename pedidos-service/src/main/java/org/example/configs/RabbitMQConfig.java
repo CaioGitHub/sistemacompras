@@ -13,12 +13,29 @@ public class RabbitMQConfig {
     @Value("${pedido.queue.name}")
     private String pedidoQueueName;
 
+    @Value("${pedido.queue.response}")
+    private String pedidoResponseQueueName;
+
+    /**
+     * Fila principal — onde o pedidos-service envia novos pedidos.
+     */
     @Bean
     public Queue pedidoQueue() {
         // true = fila persistente (não é apagada quando o broker reinicia)
         return new Queue(pedidoQueueName, true);
     }
 
+    /**
+     * Fila de resposta — onde o produtos-service envia status de confirmação.
+     */
+    @Bean
+    public Queue pedidoResponseQueue() {
+        return new Queue(pedidoResponseQueueName, true);
+    }
+
+    /**
+     * Conversor para mensagens JSON (RabbitMQ <-> Objetos Java)
+     */
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
