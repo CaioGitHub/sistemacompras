@@ -15,11 +15,10 @@ A comunicação entre os serviços é feita de forma **assíncrona via RabbitMQ*
   - Spring Web
   - Spring Data JPA
   - Spring AMQP (RabbitMQ)
-  - Spring Validation
-- **Banco de dados:** H2 (em memória)
-- **Mensageria:** RabbitMQ (via CloudAMQP)
-- **Gerenciador de dependências:** Maven
-- **IDE recomendada:** IntelliJ IDEA
+  - H2 Database
+- **RabbitMQ (CloudAMQP)**
+- **Lombok**
+- **Maven**
 
 ---
 
@@ -27,47 +26,33 @@ A comunicação entre os serviços é feita de forma **assíncrona via RabbitMQ*
 
 ``` 
 sistemacompras/
+│
 ├── pedidos-service/
 │ ├── src/main/java/org/example/
-│ │ ├── configs/ → Configurações do RabbitMQ
-│ │ ├── consumers/ → Consumidor da fila de status do pedido
+│ │ ├── configs/ → Configuração do RabbitMQ
+│ │ ├── consumers/ → Recebe respostas do serviço de produtos
 │ │ ├── controllers/ → Endpoints REST de pedidos
-│ │ ├── models/ → Entidades e DTOs
-│ │ ├── producers/ → Produtor que envia pedidos para RabbitMQ
-│ │ ├── repositories/ → Interface JPA (PedidoRepository)
-│ │ └── services/ → Regra de negócio dos pedidos
+│ │ ├── models/ → Entidades: Pedido, ItemPedido, PedidoStatusResponse
+│ │ ├── producers/ → Envia pedidos para a fila RabbitMQ
+│ │ ├── repositories/ → Acesso JPA (PedidoRepository)
+│ │ └── services/ → Regras de negócio e integração com Produtos
 │ └── resources/
 │ └── application.properties
 │
-└── produtos-service/
-├── src/main/java/org/example/
-│ ├── configs/ → Configurações do RabbitMQ
-│ ├── consumers/ → Consumidor que recebe pedidos do RabbitMQ
-│ ├── models/ → Entidades de Produto e Pedido
-│ ├── producers/ → Produtor que envia status do pedido
-│ ├── repositories/ → Interface JPA (ProdutoRepository)
-│ └── services/ → Regras de estoque e integração com pedidos
-└── resources/
-├── application.properties
-└── data.sql → Script inicial com produtos pré-cadastrados
-```
-
----
-
-## ⚙️ Fluxo de Comunicação entre os Microsserviços
-
-```text
-Cliente → (POST) /pedidos → Pedidos-Service
-           ↓
-       [RabbitMQ: pedidos.fila]
-           ↓
-     Produtos-Service consome
-           ↓
- Atualiza estoque e envia resposta
-           ↓
-       [RabbitMQ: pedidos.resposta]
-           ↓
- Pedidos-Service consome e atualiza status
+├── produtos-service/
+│ ├── src/main/java/org/example/
+│ │ ├── configs/ → Configuração do RabbitMQ
+│ │ ├── consumers/ → Recebe pedidos e atualiza estoque
+│ │ ├── controllers/ → Endpoints REST de produtos
+│ │ ├── models/ → Entidades Produto e Pedido
+│ │ ├── producers/ → Envia status do pedido de volta
+│ │ ├── repositories/ → Acesso JPA (ProdutoRepository)
+│ │ └── services/ → Lógica de estoque e integração com Pedidos
+│ └── resources/
+│ ├── application.properties
+│ └── data.sql → Script de inicialização com produtos de exemplo
+│
+└── README.md
 ```
 
 ---
@@ -188,8 +173,17 @@ GET http://localhost:8081/pedidos
 --- 
 
 🧩 4. Acessar os bancos de dados (H2)
-* Produtos: http://localhost:8080/h2-console
-* Pedidos: http://localhost:8081/h2-console
+
+Cada microsserviço usa um banco **em memória (H2)** independente:
+
+| Serviço           | URL do Console H2                  | JDBC URL                  |
+|-------------------|------------------------------------|---------------------------|
+| produtos-service  | `http://localhost:8080/h2-console` | `jdbc:h2:mem:produtosdb`  |
+| pedidos-service   | `http://localhost:8081/h2-console` | `jdbc:h2:mem:pedidosdb`   |
+
+Usuário: `sa`  
+Senha: *(vazio)*
+
 Credenciais:
 ```yaml
 JDBC URL: jdbc:h2:mem:produtosdb  (ou pedidosdb)
@@ -220,3 +214,4 @@ Sinta-se livre para clonar e adaptar o código.
 Caio Victor
 
 📘 Projeto criado como exercício de integração entre microsserviços — Sistema de Compras Online
+
