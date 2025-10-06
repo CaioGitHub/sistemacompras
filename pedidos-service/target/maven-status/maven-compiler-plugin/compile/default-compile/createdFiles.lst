@@ -1,0 +1,10 @@
+org\example\models\ItemPedido.class
+org\example\repositories\PedidoRepository.class
+org\example\models\ItemPedido$ItemPedidoBuilder.class
+org\example\Main.class
+org\example\models\Pedido.class
+org\example\configs\RabbitMQConfig.class
+org\example\models\Pedido$PedidoBuilder.class
+org\example\controllers\PedidoController.class
+org\example\producers\PedidoProducer.class
+org\example\services\PedidoService.class

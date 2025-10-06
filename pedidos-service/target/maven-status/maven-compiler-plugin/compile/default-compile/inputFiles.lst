@@ -1,0 +1,8 @@
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\configs\RabbitMQConfig.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\repositories\PedidoRepository.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\services\PedidoService.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\controllers\PedidoController.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\producers\PedidoProducer.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\models\Pedido.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\Main.java
+D:\Aulas\sistemacompras\pedidos-service\src\main\java\org\example\models\ItemPedido.java
